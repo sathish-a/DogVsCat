@@ -1,0 +1,2 @@
+model_checkpoint_path: "/Users/sathish/Machine_Learning/DogVsCat/cat_dog"
+all_model_checkpoint_paths: "/Users/sathish/Machine_Learning/DogVsCat/cat_dog"
