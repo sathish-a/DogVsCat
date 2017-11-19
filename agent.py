@@ -42,109 +42,50 @@ strides = 3
 # train_X, train_Y = shuffle(train_X, train_Y, random_state=0)
 
 # train_X = np.load(dir + "x.npy")
-# train_Y = np.load(dir + "y.n​
-80
-​
-81
+# train_Y = np.load(dir + "y.n
 # To read the data from datasets folder
-82
 def read(name):
-83
     images = []
-84
     print("Reading " + name + "...")
-85
     i = 0
-86
     for file in listdir("datasets/" + name):
-87
         if not file.startswith('.') and file != 'Thumbs.db':
-88
             i = i + 1
-89
             print(i, ":" + file)
-90
             images = Image.open("datasets/" + name + "/" + file)
-91
             images = np.asarray(images)
-92
             data.append(images)
-93
             if name == "cat":
-94
                 label.append([1, 0])
-95
             else:
-96
                 label.append([0, 1])
-97
-​
-98
-​
-99
 # To train the model from the data which has already been read
-100
 def learn():
-101
     # model learn
-102
     read("cat")
-103
     read("dog")
-104
     model.fit(data, label,
-105
               n_epoch=10, show_metric=True,
-106
               snapshot_step=20, batch_size=100, run_id='cat_dog')
-107
     model.save("cat_dog")
-108
-​
-109
-​
-110
 # To Test the trained model
-111
+
 def predict():
-112
     model.load('cat_dog')
-113
     with open('submission_file.csv', 'w') as f:
-114
         f.write('id,label\n')
-115
     with open('submission_file.csv', 'a') as f:
-116
         for file in listdir("datasets/test"):
-117
             image = Image.open("datasets/test/" + file)
-118
             image = np.asarray(image)
-119
             image = image.reshape(-1, 200, 200, 3)
-120
             # p = np.argmax(model.predict(image))
-121
             # print(lab_name[p])
-122
             mod = model.predict(image)[0][1]
-123
             f.write('{},{}\n'.format(file.split(".")[0], mod))
-124
             print(file + ":", mod)
-125
-​
-126
-​
-127
 learn()
-128
-​
-129
 predict()
-130
-py")
 # test_X = train_X[:30]
 # test_Y = train_Y[:30]
 
